@@ -16,4 +16,4 @@ select * from products;
 
 select * from cart_items; 
 
-SELECT c.*, p.id as product_id, p．name, p.price FROM cart_items c JOIN products p ON c.product_id = p.id;
+SELECT c.*, p.id as product_id, p.name, p.price FROM cart_items c JOIN products p ON c.product_id = p.id;
