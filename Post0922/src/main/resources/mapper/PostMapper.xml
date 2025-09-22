@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.du.post0922.mapper.PostMapper">
+
+    <!-- 모든 게시글 조회 -->
+    <select id="findAll" resultType="com.du.post0922.domain.Post">
+        SELECT * FROM post ORDER BY id DESC
+    </select>
+
+    <!-- ID로 게시글 조회 -->
+    <select id="findById" resultType="com.du.post0922.domain.Post" parameterType="long">
+        SELECT * FROM post WHERE id = #{id}
+    </select>
+
+    <!-- 게시글 추가 -->
+    <insert id="insert" parameterType="com.du.post0922.domain.Post">
+        INSERT INTO post(title, content, writer)
+        VALUES (#{title}, #{content}, #{writer})
+    </insert>
+
+    <!-- 게시글 수정 -->
+    <update id="update" parameterType="com.du.post0922.domain.Post">
+        UPDATE post
+        SET title = #{title},
+            content = #{content},
+            writer = #{writer}
+        WHERE id = #{id}
+    </update>
+
+    <!-- 게시글 삭제 -->
+    <delete id="delete" parameterType="long">
+        DELETE FROM post WHERE id = #{id}
+    </delete>
+
+    <!-- 전체 게시글 수 조회 -->
+    <select id="count" resultType="int">
+        SELECT COUNT(*) FROM post
+    </select>
+
+    <!-- 🔧 페이징 조회 (findPage) 추가 -->
+    <select id="findPage" resultType="com.du.post0922.domain.Post">
+        SELECT *
+        FROM post
+        ORDER BY id DESC
+            LIMIT #{limit} OFFSET #{offset}
+    </select>
+
+</mapper>
