@@ -10,6 +10,23 @@ CREATE TABLE IF NOT EXISTS menu (
   available BOOLEAN DEFAULT TRUE      -- 판매 가능 여부
 );
 
+ALTER TABLE menu ADD COLUMN brand VARCHAR(100);
+
+
 select * from menu;
 
-DROP TABLE menu;
+-- 리뷰 테이블
+CREATE TABLE review (
+  id         BIGINT PRIMARY KEY AUTO_INCREMENT,
+  menu_id    BIGINT NOT NULL,
+  author     VARCHAR(50) NOT NULL,
+  rating     INT NOT NULL,          -- 1~5
+  content    TEXT NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_review_menu
+    FOREIGN KEY (menu_id) REFERENCES menu(id)
+    ON DELETE CASCADE
+);
+
+drop table menu;
+

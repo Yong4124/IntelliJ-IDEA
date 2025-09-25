@@ -1,6 +1,5 @@
 package com.du.quiz1.mapper;
 
-
 import com.du.quiz1.domain.Menu;
 import org.apache.ibatis.annotations.*;
 
@@ -9,27 +8,42 @@ import java.util.List;
 @Mapper
 public interface MenuMapper {
 
-    @Select("SELECT * FROM menu ORDER BY id DESC")
+    // 가독성/안전성을 위해 컬럼 명시 + 별칭
+    @Select("""
+      SELECT id, name, brand, price, category,
+             spicy_level AS spicyLevel, available
+      FROM menu
+      ORDER BY id DESC
+    """)
     List<Menu> findAll();
 
-    @Select("SELECT * FROM menu WHERE id = #{id}")
+    @Select("""
+      SELECT id, name, brand, price, category,
+             spicy_level AS spicyLevel, available
+      FROM menu
+      WHERE id = #{id}
+    """)
     Menu findById(Long id);
 
     @Insert("""
-        INSERT INTO menu(name, price, category, spicy_level, available)
-        VALUES (#{name}, #{price}, #{category}, #{spicyLevel}, #{available})
+      INSERT INTO menu (name, brand, price, category, spicy_level, available)
+      VALUES (#{name}, #{brand}, #{price}, #{category}, #{spicyLevel}, #{available})
     """)
     @Options(useGeneratedKeys = true, keyProperty = "id")
-    void insert(Menu menu);
+    int insert(Menu menu);
 
     @Update("""
-        UPDATE menu
-        SET name=#{name}, price=#{price}, category=#{category},
-            spicy_level=#{spicyLevel}, available=#{available}
-        WHERE id=#{id}
+      UPDATE menu
+      SET name = #{name},
+          brand = #{brand},
+          price = #{price},
+          category = #{category},
+          spicy_level = #{spicyLevel},
+          available = #{available}
+      WHERE id = #{id}
     """)
-    void update(Menu menu);
+    int update(Menu menu);
 
     @Delete("DELETE FROM menu WHERE id = #{id}")
-    void delete(Long id);
+    int delete(Long id);
 }

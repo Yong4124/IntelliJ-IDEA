@@ -9,24 +9,35 @@
 <body class="container mt-5">
 <h1 class="mb-4" th:text="${menu.id == null} ? '📝 메뉴 추가' : '✏️ 메뉴 수정'">📝 메뉴 추가</h1>
 
-<form th:action="@{/menus}" method="post">
-    <input type="hidden" name="id" th:value="${menu.id}"/>
+<!-- 추천 개선: th:object 사용 + 액션 분기 -->
+<form th:object="${menu}"
+      th:action="${menu.id} == null ? @{/menus} : @{/menus/{id}/edit(id=${menu.id})}"
+      method="post">
+
+    <input type="hidden" th:field="*{id}" />
 
     <div class="mb-3">
         <label class="form-label">이름</label>
-        <input type="text" class="form-control" name="name" th:value="${menu.name}" required/>
+        <input type="text" class="form-control" th:field="*{name}" required/>
+    </div>
+
+    <div class="mb-3">
+        <label class="form-label">브랜드</label>
+        <input type="text" class="form-control" th:field="*{brand}" />
     </div>
 
     <div class="mb-3">
         <label class="form-label">가격(원)</label>
-        <input type="number" class="form-control" name="price" min="0" step="100" th:value="${menu.price}" required/>
+        <input type="number" class="form-control" th:field="*{price}" min="0" step="100" required/>
     </div>
 
     <div class="mb-3">
         <label class="form-label">카테고리</label>
-        <select class="form-select" name="category" th:value="${menu.category}">
+        <select class="form-select" th:field="*{category}">
             <option value="FRIED">FRIED (후라이드)</option>
+            <option value="BAKE">BAKE (베이크)</option>
             <option value="SAUCED">SAUCED (양념)</option>
+            <option value="SEASONING">SEASONING (시즈닝)</option>
             <option value="SIDE">SIDE (사이드)</option>
             <option value="BEVERAGE">BEVERAGE (음료)</option>
         </select>
@@ -34,17 +45,18 @@
 
     <div class="mb-3">
         <label class="form-label">매운맛(0~5)</label>
-        <input type="number" class="form-control" name="spicyLevel" min="0" max="5"
-               th:value="${menu.spicyLevel != null ? menu.spicyLevel : 0}"/>
+        <input type="number" class="form-control" th:field="*{spicyLevel}" min="0" max="5"/>
     </div>
 
     <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" name="available" th:checked="${menu.available}">
+        <input class="form-check-input" type="checkbox" th:field="*{available}">
         <label class="form-check-label">판매중</label>
     </div>
 
-    <button type="submit" class="btn btn-success" th:text="${menu.id == null} ? '등록' : '수정 완료'">등록</button>
+    <button type="submit" class="btn btn-success"
+            th:text="${menu.id == null} ? '등록' : '수정 완료'">등록</button>
     <a th:href="@{/}" class="btn btn-secondary">목록</a>
 </form>
+
 </body>
 </html>

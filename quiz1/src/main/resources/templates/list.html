@@ -21,6 +21,7 @@
     <tr>
         <th>ID</th>
         <th>이름</th>
+        <th>브랜드</th>
         <th>가격</th>
         <th>카테고리</th>
         <th>매운맛</th>
@@ -31,11 +32,14 @@
     <tbody>
     <tr th:each="m : ${menus}">
         <td th:text="${m.id}">1</td>
-        <td th:text="${m.name}">후라이드</td>
-        <td th:text="${#numbers.formatInteger(m.price, 3, 'COMMA')}">17,000</td>
+        <td>
+            <a th:href="@{/menus/{id}(id=${m.id})}" th:text="${m.name}">후라이드</a>
+        </td>
+        <td th:text="${m.brand}">BHC</td> <!-- ← 추가 -->
+        <td th:text="|${#numbers.formatInteger(m.price, 3, 'COMMA')} 원|">17,000 원</td>
         <td th:text="${m.category}">FRIED</td>
         <td th:text="${m.spicyLevel}">0</td>
-        <td th:text="${m.available} ? '판매중' : '품절'">판매중</td>
+        <td th:text="${m.available ? '판매중' : '품절'}">판매중</td>
         <td>
             <a class="btn btn-sm btn-warning" th:href="@{/menus/{id}/edit(id=${m.id})}">수정</a>
             <form th:action="@{/menus/{id}/delete(id=${m.id})}" method="post" class="d-inline">

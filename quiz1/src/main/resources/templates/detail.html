@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="|${menu.name} 상세|">상세</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+</head>
+<body class="container mt-4">
+
+<a class="btn btn-secondary mb-3" th:href="@{/}">목록</a>
+
+<h2 class="mb-2" th:text="${menu.name}">메뉴명</h2>
+<div class="text-muted mb-3">
+    브랜드: <span th:text="${menu.brand}">브랜드</span> ·
+    카테고리: <span th:text="${menu.category}">FRIED</span> ·
+    가격: <span th:text="|${#numbers.formatInteger(menu.price,3,'COMMA')} 원|">0 원</span>
+</div>
+
+<h4 class="mt-4">
+    리뷰 (<span th:text="${#lists.size(reviews)}">0</span>건)
+    <small class="text-muted" th:if="${avgRating > 0}">· 평균 ★ <span th:text="${#numbers.formatDecimal(avgRating,1,1)}">0.0</span></small>
+</h4>
+
+<!-- 리뷰 작성 폼 -->
+<form class="border rounded p-3 mb-4" th:action="@{/menus/{id}/reviews(id=${menu.id})}" th:object="${review}" method="post">
+    <div class="row g-2">
+        <div class="col-md-3">
+            <label class="form-label">작성자</label>
+            <input class="form-control" th:field="*{author}" required/>
+        </div>
+        <div class="col-md-2">
+            <label class="form-label">평점(1~5)</label>
+            <input type="number" class="form-control" th:field="*{rating}" min="1" max="5" required/>
+        </div>
+        <div class="col-12">
+            <label class="form-label">내용</label>
+            <textarea class="form-control" th:field="*{content}" rows="3" required></textarea>
+        </div>
+    </div>
+    <button class="btn btn-primary mt-3" type="submit">리뷰 등록</button>
+</form>
+
+<!-- 리뷰 목록 -->
+<div class="list-group">
+    <div class="list-group-item" th:each="r : ${reviews}">
+        <div class="d-flex justify-content-between">
+            <div>
+                <strong th:text="${r.author}">작성자</strong>
+                <span class="text-warning ms-2">★</span><span th:text="${r.rating}">0</span>
+                <small class="text-muted ms-2" th:text="${#temporals.format(r.createdAt, 'yyyy-MM-dd HH:mm')}">날짜</small>
+            </div>
+            <form th:action="@{/menus/{menuId}/reviews/{rid}/delete(menuId=${menu.id}, rid=${r.id})}" method="post">
+                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('삭제할까요?')">삭제</button>
+            </form>
+        </div>
+        <div class="mt-2" th:text="${r.content}">내용</div>
+    </div>
+    <div class="text-muted" th:if="${#lists.isEmpty(reviews)}">아직 등록된 리뷰가 없습니다.</div>
+</div>
+
+</body>
+</html>
