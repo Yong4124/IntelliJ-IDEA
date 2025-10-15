@@ -1,22 +1,17 @@
 package com.du.query1013.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Post {
-    public Post(String title, String content) {
-        this.title = title;
-        this.content = content;
-    }
-
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
+    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto_increment
     private Long id;
 
     private String title;
@@ -24,4 +19,8 @@ public class Post {
     @Column(length = 1000)
     private String content;
 
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+    }
 }

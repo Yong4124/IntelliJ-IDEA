@@ -3,7 +3,6 @@ package com.du.query1013.controller;
 import com.du.query1013.entity.Post;
 import com.du.query1013.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,16 +18,13 @@ public class PostController {
 
     @GetMapping
     public String list(@RequestParam(required = false) String keyword, Model model) {
-        List<Post> posts = (keyword != null && !keyword.isEmpty())
-                ? postRepository.findByTitleContaining(keyword)
-                : postRepository.findAll();
-
+        List<Post> posts = (keyword != null && !keyword.isEmpty()) ? postRepository.findByTitleContaining(keyword) : postRepository.findAll();
         model.addAttribute("posts", posts);
         return "list";
     }
 
     @GetMapping("/new")
-    public String form(Model model) {
+    public String from(Model model) {
         model.addAttribute("post", new Post());
         return "form";
     }
@@ -38,5 +34,4 @@ public class PostController {
         postRepository.save(post);
         return "redirect:/posts";
     }
-
 }
