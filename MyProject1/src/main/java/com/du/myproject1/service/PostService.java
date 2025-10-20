@@ -6,6 +6,9 @@ import com.du.myproject1.repository.CommentRepository;
 import com.du.myproject1.repository.PostRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -73,6 +76,13 @@ public class PostService {
             }
         }
         return imagePaths;
+    }
+
+    // 기존 PostService 내부에 추가
+    public Page<Post> findAllPaged(int page, int size) {
+        return postRepository.findAll(
+                PageRequest.of(page, size, Sort.by("createdAt").descending())
+        );
     }
 
     @Transactional

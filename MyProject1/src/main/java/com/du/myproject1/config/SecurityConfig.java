@@ -16,9 +16,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/register", "/css/**", "/images/**", "/uploads/**").permitAll()
-                        .requestMatchers("/posts", "/posts/{id}").permitAll()  // 목록, 상세보기 가능
-                        .anyRequest().authenticated() // 그 외는 로그인 필요
+                        .requestMatchers("/", "/login", "/register", "/register/**", "/css/**", "/images/**", "/uploads/**").permitAll()
+                        .requestMatchers("/posts", "/posts/{id}").permitAll() // 목록, 상세보기
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
@@ -29,7 +29,7 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/posts")
                         .permitAll()
                 )
-                .csrf(csrf -> csrf.disable()); // 필요시 설정
+                .csrf(csrf -> csrf.disable()); // CSRF 비활성화 (테스트 단계에서는 OK)
 
         return http.build();
     }

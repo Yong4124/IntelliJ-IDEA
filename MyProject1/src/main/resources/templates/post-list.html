@@ -7,7 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #fafafa; font-family: 'Noto Sans KR', sans-serif; }
-        .post-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .post-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 6px rgba(0,0,0,0.05); margin-bottom: 20px; display: flex; align-items: center; gap: 15px; }
+        .post-thumbnail { width: 120px; height: 120px; object-fit: cover; border-radius: 10px; }
         .navbar-brand { font-weight: bold; color: #ff6f00 !important; }
         .footer { margin-top: 60px; text-align: center; color: #888; font-size: 0.9rem; }
     </style>
@@ -20,16 +21,14 @@
         <a class="navbar-brand" href="/posts">🍽 맛집 게시판</a>
 
         <div class="ms-auto d-flex align-items-center">
-            <!-- 로그인 상태 -->
             <div sec:authorize="isAuthenticated()" class="d-flex align-items-center">
-        <span class="me-3 fw-semibold text-secondary">
-          👋 안녕하세요, <span th:text="${#authentication.name}"></span> 님!
-        </span>
+                <span class="me-3 fw-semibold text-secondary">
+                  👋 안녕하세요, <span th:text="${#authentication.name}"></span> 님!
+                </span>
                 <a href="/posts/new" class="btn btn-warning btn-sm me-2">글쓰기</a>
                 <a href="/logout" class="btn btn-outline-secondary btn-sm">로그아웃</a>
             </div>
 
-            <!-- 비로그인 상태 -->
             <div sec:authorize="!isAuthenticated()">
                 <a href="/login" class="btn btn-outline-primary btn-sm me-2">로그인</a>
                 <a href="/register" class="btn btn-outline-success btn-sm">회원가입</a>
@@ -38,16 +37,45 @@
     </div>
 </nav>
 
+<!-- ✅ 본문 -->
 <div class="container mt-4">
     <h3 class="mb-4">📋 게시글 목록</h3>
+
     <div th:each="post : ${posts}" class="post-card">
-        <h5 th:text="${post.title}"></h5>
-        <p class="text-muted small">
-            <span th:text="${post.author}"></span> |
-            <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
-        </p>
-        <a th:href="@{'/posts/' + ${post.id}}" class="btn btn-sm btn-outline-primary">상세보기</a>
+        <!-- ✅ 첫 번째 이미지 표시 -->
+        <img th:if="${!#lists.isEmpty(post.imagePaths)}"
+             th:src="@{${post.imagePaths[0].imagePath}}"
+             class="post-thumbnail shadow-sm">
+        <img th:if="${#lists.isEmpty(post.imagePaths)}"
+             src="/images/default-thumbnail.jpg"
+             class="post-thumbnail shadow-sm">
+
+        <div>
+            <h5 th:text="${post.title}" class="fw-bold"></h5>
+            <p class="text-muted small mb-2">
+                <span th:text="${post.author}"></span> |
+                <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}"></span>
+            </p>
+            <a th:href="@{'/posts/' + ${post.id}}" class="btn btn-sm btn-outline-primary">상세보기</a>
+        </div>
     </div>
+
+    <!-- ✅ 페이지네이션 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item" th:classappend="${currentPage == 0} ? 'disabled'">
+                <a class="page-link" th:href="@{/posts(page=${currentPage - 1})}">이전</a>
+            </li>
+            <li class="page-item"
+                th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                th:classappend="${i == currentPage} ? 'active'">
+                <a class="page-link" th:href="@{/posts(page=${i})}" th:text="${i + 1}"></a>
+            </li>
+            <li class="page-item" th:classappend="${currentPage + 1 >= totalPages} ? 'disabled'">
+                <a class="page-link" th:href="@{/posts(page=${currentPage + 1})}">다음</a>
+            </li>
+        </ul>
+    </nav>
 </div>
 
 <div class="footer">© 2025 MyProject1</div>

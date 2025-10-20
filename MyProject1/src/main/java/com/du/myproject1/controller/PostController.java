@@ -22,10 +22,18 @@ public class PostController {
     private final PostService postService;
     private final CommentService commentService;
 
-    // 목록
+    // 목록 (페이징 추가)
     @GetMapping
-    public String list(Model model) {
-        model.addAttribute("posts", postService.findAll());
+    public String list(Model model,
+                       @RequestParam(defaultValue = "0") int page) {
+
+        int pageSize = 5; // 한 페이지당 5개 게시글
+        var postPage = postService.findAllPaged(page, pageSize);
+
+        model.addAttribute("posts", postPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", postPage.getTotalPages());
+
         return "post-list";
     }
 
