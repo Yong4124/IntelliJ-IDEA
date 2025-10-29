@@ -5,10 +5,12 @@
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/customer-service/sb3_msa3.customer-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/customer-service/sb3_msa3.customer-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/sb3_msa3.eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/sb3_msa3.eureka-server.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service/sb3_msa3.gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service/sb3_msa3.gateway-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/order-service/sb3_msa3.order-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/order-service/sb3_msa3.order-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/product-service/sb3_msa3.product-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/product-service/sb3_msa3.product-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/user-service/sb3_msa3.user-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/user-service/sb3_msa3.user-service.main.iml" />
     </modules>
   </component>
 </project>
