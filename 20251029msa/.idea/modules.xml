@@ -2,6 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cust-service/20251029msa.cust-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/cust-service/20251029msa.cust-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/eureka-server/20251029msa.eureka-server.main.iml" filepath="$PROJECT_DIR$/.idea/modules/eureka-server/20251029msa.eureka-server.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/gateway-service/20251029msa.gateway-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/gateway-service/20251029msa.gateway-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/order-service/20251029msa.order-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/order-service/20251029msa.order-service.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/product-service/20251029msa.product-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/product-service/20251029msa.product-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.main.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.test.iml" filepath="$PROJECT_DIR$/.idea/modules/auth-service/sb3_msa3.auth-service.test.iml" />

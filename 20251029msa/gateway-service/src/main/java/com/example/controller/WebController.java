@@ -47,4 +47,9 @@ public class WebController {
     public String cust(Model model) {
         return "cust";
     }
+
+    @GetMapping("/rbmq1")
+    public String rbmq1(Model model) {
+        return "rbmq1";
+    }
 } 

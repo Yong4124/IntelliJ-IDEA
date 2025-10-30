@@ -1,4 +1,4 @@
-package com.example.rabbitmq1.entity;
+package com.example.cust.model;
 
 import jakarta.persistence.*;
 
